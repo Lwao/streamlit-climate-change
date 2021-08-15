@@ -21,8 +21,9 @@ def load_dataframes():
     df['glt']        = pd.read_csv('dataset/GlobalTemperatures.csv')
     df['continents'] = pd.read_csv('dataset/continents.csv')
 
+
     # clean dataframes
-    for actual_df in ['df','city','state','country']:
+    for actual_df in ['glt','city','state','country']:
         df[actual_df]['dt'] = pd.to_datetime(df[actual_df]['dt']) # convert dates to datetime format
         df[actual_df]['year'] = df[actual_df]['dt'].dt.year # extract year of each row
 
@@ -55,6 +56,7 @@ def app(state):
         st.header('About the data')
 
         df = load_dataframes()
+        #df = clean_data(df)
 
         st.markdown('So keep up with the side bar pages and analyze the data as you wish')
     

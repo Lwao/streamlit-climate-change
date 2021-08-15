@@ -5,11 +5,11 @@ from imports import *
 def load_dataframes():
     #download dataset
     url = 'https://drive.google.com/uc?id=1ssdRWFu3A6z1jFlByX4hP6qtzWH8U9ez'
-    out = 'dataset/dataset.zip'
+    out = './dataset.zip'
     gdown.download(url, out, quiet=False)
 
     # unzip dataset
-    zip_ref = zf.ZipFile('dataset/dataset.zip', 'r')
+    zip_ref = zf.ZipFile('./dataset.zip', 'r')
     zip_ref.extractall('dataset')
     zip_ref.close()
 

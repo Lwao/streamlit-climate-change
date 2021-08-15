@@ -5,7 +5,7 @@ from imports import *
 def load_dataframes():
     #download dataset
     url = 'https://drive.google.com/uc?id=1ssdRWFu3A6z1jFlByX4hP6qtzWH8U9ez'
-    out = './dataset/dataset.zip'
+    out = 'dataset/dataset.zip'
     gdown.download(url, out, quiet=False)
 
     # unzip dataset

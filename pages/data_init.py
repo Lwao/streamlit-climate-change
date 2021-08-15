@@ -21,26 +21,24 @@ def load_dataframes():
     df['glt']        = pd.read_csv('dataset/GlobalTemperatures.csv')
     df['continents'] = pd.read_csv('dataset/continents.csv')
 
-    return df
-
-def data_cleaning(GLT):
-    for actual_df in ['glt','city','state','country']:
-        GLT[actual_df]['dt'] = pd.to_datetime(GLT[actual_df]['dt']) # convert dates to datetime format
-        GLT[actual_df]['year'] = GLT[actual_df]['dt'].dt.year # extract year of each row
+    # clean dataframes
+    for actual_df in ['df','city','state','country']:
+        df[actual_df]['dt'] = pd.to_datetime(df[actual_df]['dt']) # convert dates to datetime format
+        df[actual_df]['year'] = df[actual_df]['dt'].dt.year # extract year of each row
 
     # group numeric data by year
-    GLT['glt'] = GLT['glt'].groupby(['year']).mean().reset_index()
-    GLT['country'] = GLT['country'].groupby(['year','Country']).mean().reset_index()
-    GLT['state'] = GLT['state'].groupby(['year', 'State', 'Country']).mean().reset_index()
-    GLT['city'] = GLT['city'].groupby(['year', 'City', 'Country', 'Latitude', 'Longitude']).mean().reset_index()
+    df['glt'] = df['glt'].groupby(['year']).mean().reset_index()
+    df['country'] = df['country'].groupby(['year','Country']).mean().reset_index()
+    df['state'] = df['state'].groupby(['year', 'State', 'Country']).mean().reset_index()
+    df['city'] = df['city'].groupby(['year', 'City', 'Country', 'Latitude', 'Longitude']).mean().reset_index()
 
     # extract geographic information from countries
-    GLT['continents'] = GLT['continents'].filter(['name', 'region', 'alpha-2', 'alpha-3']).rename({'name':'Country', 'region':'Continent'}, axis=1)
+    df['continents'] = df['continents'].filter(['name', 'region', 'alpha-2', 'alpha-3']).rename({'name':'Country', 'region':'Continent'}, axis=1)
 
     # append geography information to each dataframe
-    for actual_df in ['city','state','country']: GLT[actual_df] = pd.merge(left=GLT[actual_df], right=GLT['continents'], on='Country', how='left')
+    for actual_df in ['city','state','country']: df[actual_df] = pd.merge(left=df[actual_df], right=df['continents'], on='Country', how='left')
 
-    return GLT
+    return df
 
 def app(state):
 
@@ -57,7 +55,6 @@ def app(state):
         st.header('About the data')
 
         df = load_dataframes()
-        df = data_cleaning(df)
 
         st.markdown('So keep up with the side bar pages and analyze the data as you wish')
     

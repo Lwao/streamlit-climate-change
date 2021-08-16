@@ -49,7 +49,7 @@ def app(state):
     with header:
         st.image('images/cover.png')
         st.title(':earth_americas: Is climate change real?')
-        st.markdown('Some people believe that climate change is not real, some believe that is. Who shall we trust? In case of doubt, let the data speak for themselves.')
+        st.markdown('Some people believe that climate change is not real, some believe that is. Who shall we trust? In case of doubt, let the data speak for itself.')
         
 
     with about:
@@ -66,7 +66,10 @@ def app(state):
         mdown += '"The Berkeley Earth Surface Temperature Study combines 1.6 billion temperature reports from 16 pre-existing archives. It is nicely packaged and allows for slicing into interesting subsets (for example by country). They publish the source data and the code for the transformations they applied. They also use methods that allow weather observations from shorter time series to be included, meaning fewer observations need to be thrown away". Source: Kaggle.'
         st.markdown(justBegin+mdown+justEnd, unsafe_allow_html=True)
 
-        mdown = 'To complement the use of the previous datasets, another Kaggle dataset named <a href="https://www.kaggle.com/andradaolteanu/country-mapping-iso-continent-region">Country Mapping - ISO, Continent, Region</a> was used to address each country its geographical data such as ISO code, continent and region.'
+        mdown = 'Raw data source: <a href="http://berkeleyearth.org/data/">Berkeley Earth data page</a>,'
+        st.markdown(justBegin+mdown+justEnd, unsafe_allow_html=True)
+
+        mdown = 'To complement the use of the previous datasets, another Kaggle dataset named <a href="https://www.kaggle.com/andradaolteanu/country-mapping-iso-continent-region">Country Mapping - ISO, Continent, Region</a> was used to address each country its geographical data such as ISO code, continent and region. ' 
         mdown += 'Further will be discussed the features of each dataset in details, but the complementary dataset will ensure a better visualization of the evolution of temperature in each country, state and city with a plot in a geographical map.'
         st.markdown(justBegin+mdown+justEnd, unsafe_allow_html=True)
 

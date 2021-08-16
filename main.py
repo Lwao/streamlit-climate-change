@@ -8,7 +8,7 @@ from streamlit.hashing import _CodeHasher
 from streamlit.report_thread import get_report_ctx
 from streamlit.server.server import Server
 
-from pages import data_init, graphs
+from pages import data_init, globalOv, localOv
 
 st.set_page_config(
                     page_title="Is climate change real?",
@@ -33,8 +33,8 @@ def main():
 
     pages = {
         'Introduction': data_init.app,
-        'Global overview': graphs.global_overview,
-
+        'Global overview': globalOv.global_overview,
+        'Local overview': localOv.local_overview,
         }
 
     st.sidebar.title("Navigation sidebar")
@@ -43,7 +43,7 @@ def main():
     # Display the selected page with the session state
     if(choice=='Introduction'): state = pages[choice](state)
     if(choice=='Global overview'): pages[choice](state)
-    #elif(choice=='Calibração em bancada'): pages[choice]()
+    elif(choice=='Local overview'): pages[choice](state)
 
     # Mandatory to avoid rollbacks with widgets, must be called at the end of your app
     state.sync()

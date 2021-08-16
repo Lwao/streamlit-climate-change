@@ -234,7 +234,7 @@ def continents_mult_plot(df):
     fig['layout']['xaxis14']['title']= 'Years'
 
 
-    fig.update_layout(height=1400, width=1000, title='Change in continents average temperature across the years: 1900-2010',
+    fig.update_layout(hovermode='x', height=1400, width=1000, title='Change in continents average temperature across the years: 1900-2010',
                     legend=dict(
                                 orientation="h",
                                 yanchor="bottom",

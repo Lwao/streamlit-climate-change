@@ -8,7 +8,7 @@ Análise por:
 - Estados
 - Cidades
   https://gist.github.com/rxaviers/7360908
-- 
+- https://docs.streamlit.io/en/stable/api.html
 - https://www.kaggle.com/andradaolteanu/country-mapping-iso-continent-region
 - https://www.kaggle.com/andradaolteanu/plotly-advanced-global-warming-analysis
 - https://www.kaggle.com/berkeleyearth/climate-change-earth-surface-temperature-data

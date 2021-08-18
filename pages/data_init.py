@@ -48,6 +48,7 @@ def app(state):
 
     with header:
         st.image('images/cover.png')
+        st.text('Source: NY times.')
         st.title(':earth_americas: Is climate change real?')
         st.markdown('Some people believe that climate change is not real, some believe that is. Who shall we trust? In case of doubt, let the data speak for itself.')
         

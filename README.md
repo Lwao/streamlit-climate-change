@@ -1,13 +1,14 @@
 # Objetivos
 
-
-Análise por:
-- Globo
+DESCRIÇÃO SUCINTA DO CÓDIGO COM OS GRÁFICOS ESCOLHIDOS
+, MONTAGEM DO SERVIDOR WEB E DEPLOY DA SUA APLICAÇÃO WEB
+Análise por:- Globo
 - Continentes
 - Países
 - Estados
 - Cidades
-  https://gist.github.com/rxaviers/7360908
+- https://www.nytimes.com/interactive/2019/04/30/dining/climate-change-food-eating-habits.html?mtrref=www.google.com.br&gwh=5DCD4703C1C8C68507FB492B4CFA62DA&gwt=pay&assetType=PAYWALL
+- https://gist.github.com/rxaviers/7360908
 - https://docs.streamlit.io/en/stable/api.html
 - https://www.kaggle.com/andradaolteanu/country-mapping-iso-continent-region
 - https://www.kaggle.com/andradaolteanu/plotly-advanced-global-warming-analysis

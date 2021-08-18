@@ -234,7 +234,7 @@ def continents_mult_plot(df):
     fig['layout']['xaxis14']['title']= 'Years'
 
 
-    fig.update_layout(hovermode='x', height=1400, width=1000, title='Change in continents average temperature across the years: 1900-2010',
+    fig.update_layout(hovermode='x', height=1400, width=1100, title='Change in continents average temperature across the years: 1900-2010',
                     legend=dict(
                                 orientation="h",
                                 yanchor="bottom",
@@ -245,6 +245,34 @@ def continents_mult_plot(df):
     for i in fig['layout']['annotations']:
         i['font'] = dict(size=14,color='#000000')
     #fig.show()
+    return fig
+
+@st.cache
+def continents_single_plot(df):
+    df = df.groupby(['year','Continent']).mean().reset_index()
+    df = df[df['year']>1890]
+    continentsToSelect = df['Continent'].sort_values().unique()
+
+    #fig = make_subplots(rows=2, cols=1, shared_xaxes=True, row_heights=[0.7, 0.3])
+    fig = make_subplots(rows=1, cols=1)
+    for continent in continentsToSelect:
+        fig.add_trace(
+            go.Scatter(x=df['year'].unique(), 
+                        y=df['AverageTemperature'][df['Continent']==continent], 
+                        name=continent,
+                        mode='lines',
+                        showlegend=True,
+                        fill='tonexty', opacity=0.1),
+            row=1, col=1
+        )
+
+    fig['layout']['yaxis1']['title']= 'Temperature (°C)'
+    fig['layout']['xaxis1']['title']= 'Years'
+
+    fig.update_layout(hovermode='x', height=500, width=600, title='Comparison between continents temperatures: 1900-2010')
+    #for i in fig['layout']['annotations']:
+    #    i['font'] = dict(size=12,color='#000000')
+    
     return fig
 
 def global_overview(state):
@@ -258,7 +286,7 @@ def global_overview(state):
     justEnd = " </p>"
 
     mdown = 'In this page the analysis has a larger scope encompassing the whole earth, ocean and the countries temperatures. '
-    mdown += 'Once the datasets have data between months, turns out to be impractical and a poor practic considering the design of the plots to show th data per month. '
+    mdown += 'Once the datasets have data between months, turns out to be impractical and a poor practic considering the design of the plots to show the data per month. '
     mdown += 'So the data in the used data frames was grouped by year and a mean with the monthly values of quantitatives features was applied to achieve an average value by year.'
     st.markdown(justBegin+mdown+justEnd, unsafe_allow_html=True)
 
@@ -307,6 +335,13 @@ def global_overview(state):
     st.markdown(mdown, unsafe_allow_html=True)
     graph = st.container()
     graph.write(continents_mult_plot(GLT['country'].copy())) # continents mult plot
+
+    mdown = 'Despite the obvious the rise and the temperature for each continent, the plots above does not give a dimension of comparison between continents. '
+    mdown += 'So the plot below show exactly how the temperature in each continent behave.'
+    st.markdown(mdown, unsafe_allow_html=True)
+
+    _, graph4, _ = st.columns([1,3,1])
+    graph4.write(continents_single_plot(GLT['country'].copy())) # continents mult plot
 
     st.subheader('Countries temperatures')
     mdown = 'Some data from in the plots below are missing. This is explained considering that some countries only start to record its data further in time. '

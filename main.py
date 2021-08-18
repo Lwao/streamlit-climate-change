@@ -12,7 +12,7 @@ from pages import data_init, globalOv, localOv
 
 st.set_page_config(
                     page_title="Is climate change real?",
-                    page_icon=":earth_americas:"
+                    page_icon=":earth_americas:",
                 )
 
 def main():

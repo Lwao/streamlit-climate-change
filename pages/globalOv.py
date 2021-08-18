@@ -369,19 +369,51 @@ def global_overview(state):
     with config2:
         with st.expander(label='Line plot configuration', expanded=True):
             st.markdown('The two multiselections below allow to select continents and its countries to plot a line chart with the tendency of the countries average temepratures across the years. Only available data is shown.')
-            selectedContinent = st.multiselect('Select continents:', continentsToSelect, continentsToSelect[0])
+            selectedContinent = st.multiselect('Select continents:', continentsToSelect, continentsToSelect)
             countriesToSelect = df['Country'][df['Continent'].isin(selectedContinent)].sort_values().unique()
             with st.form("Plot line chart"):
-                selectedCountries = st.multiselect('Select countries:', countriesToSelect, countriesToSelect[0:4])
+                defaultCountries = pd.Series(['Brazil', 'Canada', 'Ecuador', 'United States', 'Russia', 'France', 'Germany', 'Australia', 'New Zeland', 'China', 'South Korea'])
+                selectedCountries = st.multiselect('Select countries:', countriesToSelect, defaultCountries[defaultCountries.isin(countriesToSelect)])
                 submitted = st.form_submit_button("Plot")
+            
+
 
     #if submitted:
+        
+        """""
         fig = px.line(df[df['Country'].isin(selectedCountries)], 
                     x='year', y='AverageTemperature', color='Country', 
                     title='Tendency of average temperature per country', width=500, height=520)
                     
         fig.update_xaxes(title='Years')
         fig.update_yaxes(title='Average Temperature (°C)')
+        """
+        fig = go.Figure()
+        for country in selectedCountries:
+            fig.add_trace(
+                go.Scatter(x=df.year[df['Country']==country], y=df.AverageTemperature[df['Country']==country], name=country)
+            )
+        fig.update_xaxes(title='Years')
+        fig.update_yaxes(title='Average Temperature (°C)')
+        fig.update_layout(width=500, height=520)
+        fig.update_layout(
+                            xaxis=dict(
+                                rangeselector=dict(
+                                    buttons=list([
+                                        dict(step="all"),
+                                        dict(count=113,
+                                            label="1900",
+                                            step="year",
+                                            stepmode="backward")                                        
+                                    ])
+                                ),
+                                rangeslider=dict(
+                                    visible=True
+                                ),
+                                type="date"
+                            )
+                        )
+
         #fig.show()
         graph3.write(fig)
 

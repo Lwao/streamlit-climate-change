@@ -1,20 +1,14 @@
-# Objetivos
+# Is climate change real?
 
-DESCRIÇÃO SUCINTA DO CÓDIGO COM OS GRÁFICOS ESCOLHIDOS
-, MONTAGEM DO SERVIDOR WEB E DEPLOY DA SUA APLICAÇÃO WEB
-Análise por:- Globo
-- Continentes
-- Países
-- Estados
-- Cidades
-- https://www.nytimes.com/interactive/2019/04/30/dining/climate-change-food-eating-habits.html?mtrref=www.google.com.br&gwh=5DCD4703C1C8C68507FB492B4CFA62DA&gwt=pay&assetType=PAYWALL
-- https://gist.github.com/rxaviers/7360908
-- https://docs.streamlit.io/en/stable/api.html
-- https://www.kaggle.com/andradaolteanu/country-mapping-iso-continent-region
-- https://www.kaggle.com/andradaolteanu/plotly-advanced-global-warming-analysis
-- https://www.kaggle.com/berkeleyearth/climate-change-earth-surface-temperature-data
+This repository hosts a streamlit app that analyze climate change data in the effort to generate good visualizations about the increase in the world temperature at different levels:
 
-# Data frames
+- Global;
+- Continent;
+- Country;
+- State;
+- City;
+
+## Data frames
 
 1. **city** (459.2MB)
 
@@ -71,48 +65,15 @@ LandAndOceanAverageTemperature
 LandAndOceanAverageTemperatureUncertainty
 ``` 
 
-# Abordagem
+## Links
 
-## *glt*
+- Cover image source: [NY times](https://www.nytimes.com/interactive/2019/04/30/dining/climate-change-food-eating-habits.html?mtrref=www.google.com.br&gwh=5DCD4703C1C8C68507FB492B4CFA62DA&gwt=pay&assetType=PAYWALL)
+- [Country mapping dataset](https://www.kaggle.com/andradaolteanu/country-mapping-iso-continent-region)
+- [Climate change dataset](https://www.kaggle.com/berkeleyearth/climate-change-earth-surface-temperature-data)
+- [Notebook from Kaggle with initial analyses in the data](https://www.kaggle.com/andradaolteanu/plotly-advanced-global-warming-analysis)
+- [Emojis](https://gist.github.com/rxaviers/7360908)
+- [Streamlit documentation](https://docs.streamlit.io/en/stable/api.html)
+- [Plotly documentation for Python](https://plotly.com/python/)
 
-- Visão geral sobre os aspectos de temperatura na Terra;
-- Gráficos:
-  -  *Scatter* para valores médios com incerteza;
-  -  *Gauge chart* para mostrar os valores médios evoluindo no tempo
-  -  *Filled Area Plots* para os valores máximos e mínimos
-
-Os dados serão analisados durante os anos, portanto os dados referentes aos meses passarão por uma média para obter o valor médio anual daquela grandeza.
-
-
-# Links
-
-- https://plotly.com/python/
-- https://plotly.com/python/continuous-error-bars/
-- https://plotly.com/python/mixed-subplots/
-- https://plotly.github.io/plotly.py-docs/generated/plotly.express.choropleth.html
-- https://plotly.github.io/plotly.py-docs/generated/plotly.graph_objects.Scattergeo.html
-- https://plotly.com/python-api-reference/generated/plotly.express.scatter_geo
-
-https://plotly.com/python/maps/
-
-https://plotly.com/python/choropleth-maps/
-
-https://plotly.com/python/map-configuration/
-
-https://stackoverflow.com/questions/64428096/plotly-how-to-set-individual-color-for-each-y-error-bar-using-go-figure-and-go
-
-https://www.geeksforgeeks.org/create-error-bars-in-plotly-python/
-
-https://plotly.com/python/continuous-error-bars/
-
-https://plotly.com/python/error-bars/
-
-https://plotly.com/python/gauge-charts/
-
-https://plotly.com/python/line-charts/
-
-https://plotly.com/python/indicator/
-
-https://plotly.com/python/animations/
-
-https://plotly.com/python/sunburst-charts/
+Sunburst charts to show hotest states from country and hotest cities in state https://plotly.com/python/sunburst-charts/
+Maps to distribute

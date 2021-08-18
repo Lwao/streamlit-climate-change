@@ -37,7 +37,7 @@ def main():
         'Local overview': localOv.local_overview,
         }
 
-    st.sidebar.title("Navigation sidebar")
+    st.sidebar.title(":eyes: Checkout some more")
     choice = st.sidebar.radio("Please select a page.", tuple(pages.keys()))
 
     # Display the selected page with the session state

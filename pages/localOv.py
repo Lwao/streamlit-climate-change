@@ -8,6 +8,12 @@ def latlon2gedree(str_):
     return numb
 
 @st.cache
+def map_plot(df):
+    if(df.dtypes['Latitude']=='O'): df['Latitude'] = df['Latitude'].apply(latlon2gedree)
+    if(df.dtypes['Longitude']=='O'): df['Longitude'] = df['Longitude'].apply(latlon2gedree)
+    map = st.map(df.rename(columns={'Latitude':'lat','Longitude':'lon'}))
+    return map
+@st.cache
 def line_plot_state(df, states):
     fig = go.Figure()
     for choice in states:
@@ -47,6 +53,55 @@ def mapbox_plot(df, stt='open-street-map'):
                         radius=10, animation_frame='year',
                         mapbox_style=stt, 
                         width=1100, height=600, title='Average temperature distributed according to latitude and longitude')      
+
+    return fig
+
+def city_line_plot(df, city):
+    fig = make_subplots(rows=2, cols=1, shared_xaxes=True, row_heights=[0.7, 0.3],
+                            subplot_titles=('Avg. temperature', 'Uncertainty'))
+
+    fig.add_trace(
+        go.Scatter(x=df['year'], 
+                y=df['AverageTemperature'], 
+                name='Avg. Temp.',
+                mode='lines',
+                showlegend=False), row=1,col=1
+    )
+    fig.add_trace(
+        go.Scatter(x=df['year'], 
+                y=df['AverageTemperatureUncertainty'], 
+                name='Error in Avg. Temp.',
+                mode='lines',
+                showlegend=False), row=2,col=1
+    )
+
+    fig.add_trace(
+        go.Scatter(x=df['year'], 
+                y=df['AverageTemperature']+df['AverageTemperatureUncertainty']/2, 
+                name='upper bound',
+                mode='lines',
+                marker=dict(color="#444"),
+                line=dict(width=0),
+                showlegend=False), row=1,col=1
+    )
+    fig.add_trace(
+        go.Scatter(x=df['year'], 
+                y=df['AverageTemperature']-df['AverageTemperatureUncertainty']/2,
+                name='lower bound',
+                mode='lines',
+                marker=dict(color="#444"),
+                line=dict(width=0),
+                fillcolor='rgba(0,0,68, 0.2)',
+                fill='tonexty',
+                showlegend=False), row=1,col=1
+    )
+
+    fig.update_layout(hovermode="x", height=400, width=400, title='Average temperature in ' + city)
+    fig.update_xaxes(title='Years')
+    fig.update_yaxes(title='Temperature (°C)')
+
+    for i in fig['layout']['annotations']:
+        i['font'] = dict(size=13,color='#000000')
 
     return fig
 
@@ -105,6 +160,10 @@ def local_overview(state):
 
     st.header(':bus: State analysis')
 
+    st.markdown('In the state analysis we are using the follow graphs:')
+    st.markdown('- **Scatter plot** with lines to show the evolution of temperature in each state;')
+    st.markdown('- **Sunburst chart** with the country as a parent and the states as its children to show a geometrical comparison between the temperatures of each state in a given year.')
+
     col1, col2 = st.columns([2,1])
 
     with col1:
@@ -112,7 +171,7 @@ def local_overview(state):
 
     with col2: 
         df = GLT['state'].copy()
-        ano = st.select_slider('Escolha o ano:', df['year'], 2000)
+        ano = st.select_slider('Choose the year:', df['year'], 2000)
         title = 'States average temperature in year ' + str(ano)
         df = df[(df['Country']==country) & (df['year']==ano)]
 
@@ -124,7 +183,7 @@ def local_overview(state):
 
     st.header(':car: City analysis')
 
-    st.markdown('Considering the latitude and longitude of each city, we can plot a density mapbox along the geographical position of each city on earth acros time, resulting in the plot below.')
+    st.markdown('Considering the latitude and longitude of each city, we can plot a **density mapbox** along the geographical position of each city on earth acros time, resulting in the plot below.')
 
     graph = st.container()
     with graph: 
@@ -132,3 +191,31 @@ def local_overview(state):
             stss = ['open-street-map', 'white-bg', 'carto-positron', 'carto-darkmatter', 'stamen- terrain', 'stamen-toner', 'stamen-watercolor'] 
             stt = st.selectbox(" ", options=stss)
         st.write(mapbox_plot(GLT['city'], stt))
+
+    st.markdown('But what you are looking for is your city. To the data related to the city of choice it will be used couple graphics:')
+    st.markdown('- **Line plot** to show a curve of the temperature of the city and its uncertainty;')
+    st.markdown('- **Box plot** to clarify about the statistics in that city;')
+    st.markdown('- **Dist plot** been a histogram with a rug and the probability density function of the data.')
+
+    col1, col2, col3 = st.columns([1,1,1])
+
+    df = GLT['city'][GLT['city']['City']==city].dropna().copy()
+    with col1: st.write(city_line_plot(df, city))
+    with col2: 
+        st.write(
+            px.box(
+                df.rename(columns={'AverageTemperature':'Average temperature (°C)'}), 
+                x='City', y='Average temperature (°C)', 
+                points='all', title='Statistics of temperature in ' + city,
+                width=350, height=400
+                )
+        )
+    with col3:
+        fig = ff.create_distplot([df['AverageTemperature']], [city], bin_size=.2, show_rug=True)
+        fig.update_layout(width=400, 
+                        height=400,
+                        bargap=0.01)
+        fig.update_xaxes(title='Temperature (°C)')
+        fig.update_layout(title='Distribution of temperature in ' + city, showlegend=False)
+        st.write(fig)
+

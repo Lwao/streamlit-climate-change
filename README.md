@@ -75,5 +75,3 @@ LandAndOceanAverageTemperatureUncertainty
 - [Streamlit documentation](https://docs.streamlit.io/en/stable/api.html)
 - [Plotly documentation for Python](https://plotly.com/python/)
 
-Sunburst charts to show hotest states from country and hotest cities in state https://plotly.com/python/sunburst-charts/
-Maps to distribute

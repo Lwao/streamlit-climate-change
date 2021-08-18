@@ -8,6 +8,36 @@ def latlon2gedree(str_):
     return numb
 
 @st.cache
+def line_plot_state(df, states):
+    fig = go.Figure()
+    for choice in states:
+        fig.add_trace(
+            go.Scatter(x=df.year[df['State']==choice], y=df.AverageTemperature[df['State']==choice], name=choice,
+            mode='lines', showlegend=True)
+        )
+    fig.update_xaxes(title='Years')
+    fig.update_yaxes(title='Average Temperature (°C)')
+    fig.update_layout(width=700, height=600, title='Average temperature in each state')
+    fig.update_layout(
+                        xaxis=dict(
+                            rangeselector=dict(
+                                buttons=list([
+                                    dict(step="all"),
+                                    dict(count=113,
+                                        label="1900",
+                                        step="year",
+                                        stepmode="backward")                                        
+                                ])
+                            ),
+                            rangeslider=dict(
+                                visible=True
+                            ),
+                            type="date"
+                        )
+                    )
+    return fig
+
+@st.cache
 def mapbox_plot(df, stt='open-street-map'):
     if(df.dtypes['Latitude']=='O'): df['Latitude'] = df['Latitude'].apply(latlon2gedree)
     if(df.dtypes['Longitude']=='O'): df['Longitude'] = df['Longitude'].apply(latlon2gedree)
@@ -78,34 +108,7 @@ def local_overview(state):
     col1, col2 = st.columns([2,1])
 
     with col1:
-        df = GLT['state'].copy()
-        fig = go.Figure()
-        for choice in states:
-            fig.add_trace(
-                go.Scatter(x=df.year[df['State']==choice], y=df.AverageTemperature[df['State']==choice], name=choice,
-                mode='lines', showlegend=True)
-            )
-        fig.update_xaxes(title='Years')
-        fig.update_yaxes(title='Average Temperature (°C)')
-        fig.update_layout(width=700, height=600, title='Average temperature in each state')
-        fig.update_layout(
-                            xaxis=dict(
-                                rangeselector=dict(
-                                    buttons=list([
-                                        dict(step="all"),
-                                        dict(count=113,
-                                            label="1900",
-                                            step="year",
-                                            stepmode="backward")                                        
-                                    ])
-                                ),
-                                rangeslider=dict(
-                                    visible=True
-                                ),
-                                type="date"
-                            )
-                        )
-        st.write(fig)
+        st.write(line_plot_state(GLT['state'].copy(), states))
 
     with col2: 
         df = GLT['state'].copy()

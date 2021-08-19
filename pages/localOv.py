@@ -201,7 +201,7 @@ def local_overview(state):
     st.markdown('But what you are looking for is your city. To the data related to the city of choice it will be used couple graphics:')
     st.markdown('- **Line plot** to show a curve of the temperature of the city and its uncertainty;')
     st.markdown('- **Box plot** to clarify about the statistics in that city;')
-    st.markdown('- **Dist plot** been a histogram with a rug and the probability density function of the data.')
+    st.markdown('- **Histogram plot** been a histogram indicating the probability density function of the data.')
 
     col1, col2, col3 = st.columns([1,1,1])
 

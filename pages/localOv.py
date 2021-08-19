@@ -139,9 +139,14 @@ def local_overview(state):
 
     col1, col2, col3 = st.columns([1,1,1])
     with col1:
-        continents = GLT['country']['Continent'].dropna().sort_values().unique()
+        continents = list(GLT['country']['Continent'].dropna().sort_values().unique())
+        continents.remove('Americas')
+        continents.insert(0, 'Americas')
         continent = st.selectbox('Select a continent:', continents)
-        countries = GLT['city']['Country'][GLT['city']['Continent']==continent].dropna().sort_values().unique()
+        countries = list(GLT['city']['Country'][GLT['city']['Continent']==continent].dropna().sort_values().unique())
+        if(continent=='Americas'): 
+            countries.remove('Brazil')
+            countries.insert(0, 'Brazil')
         country = st.selectbox('Select a country:', countries)
     with col2:
         with st.form(key="Select a state"):

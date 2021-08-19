@@ -396,6 +396,7 @@ def global_overview(state):
         fig.update_xaxes(title='Years')
         fig.update_yaxes(title='Average Temperature (°C)')
         fig.update_layout(width=500, height=520)
+        fig.update_layout(title='Average temperature in countries')
         fig.update_layout(
                             xaxis=dict(
                                 rangeselector=dict(

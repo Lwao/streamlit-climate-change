@@ -47,7 +47,8 @@ def line_plot_state(df, states):
 def mapbox_plot(df, stt='open-street-map'):
     if(df.dtypes['Latitude']=='O'): df['Latitude'] = df['Latitude'].apply(latlon2gedree)
     if(df.dtypes['Longitude']=='O'): df['Longitude'] = df['Longitude'].apply(latlon2gedree)
-    fig = px.density_mapbox(df.rename(columns={'AverageTemperature':'Average temperature (°C)'}), 
+
+    fig = px.density_mapbox(df.rename(columns={'AverageTemperature':'Average temperature (°C)'})[np.mod(df['year'],10)==0], 
                         lat='Latitude', lon='Longitude', z='Average temperature (°C)', 
                         center=dict(lat=0, lon=180), zoom=0,
                         radius=10, animation_frame='year',

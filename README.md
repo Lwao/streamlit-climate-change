@@ -76,7 +76,7 @@ LandAndOceanAverageTemperatureUncertainty
 - [Plotly documentation for Python](https://plotly.com/python/)
 
 ## File tree
-
+```
 📦streamlit-climate-change
  ┣ 📂dataset
  ┃ ┣ 📜continents.csv
@@ -98,3 +98,4 @@ LandAndOceanAverageTemperatureUncertainty
  ┣ 📜main.py
  ┣ 📜README.md
  ┗ 📜requirements.txt
+ ```

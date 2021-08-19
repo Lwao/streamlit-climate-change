@@ -75,3 +75,26 @@ LandAndOceanAverageTemperatureUncertainty
 - [Streamlit documentation](https://docs.streamlit.io/en/stable/api.html)
 - [Plotly documentation for Python](https://plotly.com/python/)
 
+## File tree
+
+📦streamlit-climate-change
+ ┣ 📂dataset
+ ┃ ┣ 📜continents.csv
+ ┃ ┣ 📜GlobalLandTemperaturesByCity.csv
+ ┃ ┣ 📜GlobalLandTemperaturesByCountry.csv
+ ┃ ┣ 📜GlobalLandTemperaturesByMajorCity.csv
+ ┃ ┣ 📜GlobalLandTemperaturesByState.csv
+ ┃ ┗ 📜GlobalTemperatures.csv
+ ┣ 📂images
+ ┃ ┗ 📜cover.png
+ ┣ 📂pages
+ ┃ ┣ 📜data_init.py
+ ┃ ┣ 📜globalOv.py
+ ┃ ┗ 📜localOv.py
+ ┣ 📜.gitattributes
+ ┣ 📜.gitignore
+ ┣ 📜dataset.zip
+ ┣ 📜imports.py
+ ┣ 📜main.py
+ ┣ 📜README.md
+ ┗ 📜requirements.txt

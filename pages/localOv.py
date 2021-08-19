@@ -202,6 +202,7 @@ def local_overview(state):
     st.markdown('- **Line plot** to show a curve of the temperature of the city and its uncertainty;')
     st.markdown('- **Box plot** to clarify about the statistics in that city;')
     st.markdown('- **Histogram plot** been a histogram indicating the probability density function of the data.')
+    st.markdown('- And finally a **Waterfall plot** showing the anual variation in the temperature of the city')
 
     col1, col2, col3 = st.columns([1,1,1])
 
@@ -237,4 +238,17 @@ def local_overview(state):
         fig.update_layout(title='Distribution of temperature in ' + city, showlegend=False,
                         width=400, height=400, bargap=0.01)
         st.write(fig)
+    with st.container():
+        fig = go.Figure()
+        fig.add_trace(
+            go.Waterfall(x=df['year'].iloc[0:-1],
+                        y=np.diff(df['AverageTemperature'])
+                        )
+        )
+        fig.update_xaxes(title='Years')
+        fig.update_yaxes(title='Temperature variation (°C)')
+        fig.update_layout(title='Anual variation of temperature in ' + city, showlegend=False,
+                        width=1100, height=500)
+        st.write(fig)
 
+        st.markdown('It is important to notice that when that is missing across the years there is no data and the waterfall plot does not show variation.')

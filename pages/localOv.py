@@ -217,11 +217,10 @@ def local_overview(state):
                 )
         )
     with col3:
-        fig = ff.create_distplot([df['AverageTemperature']], [city], bin_size=.2, show_rug=True)
-        fig.update_layout(width=400, 
-                        height=400,
-                        bargap=0.01)
-        fig.update_xaxes(title='Temperature (°C)')
-        fig.update_layout(title='Distribution of temperature in ' + city, showlegend=False)
+        fig = px.histogram(df.rename(columns={'AverageTemperature':'Average temperature (°C)'}),
+                            x="Average temperature (°C)", y="City", marginal="rug", histnorm="probability")
+        fig.update_yaxes(title=city)
+        fig.update_layout(title='Distribution of temperature in ' + city, showlegend=False,
+                        width=400, height=400, bargap=0.01)
         st.write(fig)
 

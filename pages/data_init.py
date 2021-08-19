@@ -129,7 +129,6 @@ def app(state):
         mdown += '  - ```plotly.express``` module for quick graphs;\n'
         mdown += '  - ```plotly.graph_objects``` module to create complexs and custom graphs;\n'
         mdown += '  - ```plotly.subplots``` module to allow multiple plts in a single figure;\n'
-        mdown += '  - ```plotly.figure_factory``` module to create figures;\n'
         mdown += '- ```datetime``` to deal with dates in a timestamp format;\n'
         mdown += '- ```streamlit``` high level API to deploy web applications with Python;\n'
         mdown += '- ```gdown``` to download data from Google Drive;\n'
